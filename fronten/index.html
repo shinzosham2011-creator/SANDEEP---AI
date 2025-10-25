@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Bot</title>
+  <style>
+    body { background:#0a0a0a; color:white; font-family:sans-serif; text-align:center; }
+    textarea { width:80%; height:100px; margin-top:20px; }
+    button { margin-top:10px; padding:10px 20px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <h1>🤖 Chat with My AI Bot</h1>
+  <textarea id="input" placeholder="ඔබේ පණිවිඩය මෙතැන ටයිප් කරන්න..."></textarea><br>
+  <button onclick="send()">යවන්න</button>
+  <p id="reply"></p>
+  <script>
+    async function send() {
+      const message = document.getElementById("input").value;
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+      const data = await res.json();
+      document.getElementById("reply").innerText = "AI: " + data.reply;
+    }
+  </script>
+</body>
+</html>
